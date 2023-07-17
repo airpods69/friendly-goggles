@@ -16,3 +16,8 @@ Now what? We shift to petals and try that out. What is petals you might ask? goo
 The model of choice was LLaMa-65B but I was getting a validation error for that lad so I switched to Bloom but might get a validation error again. Idk what the F is that time error which it keeps on throwing at me for no reason and it still has 5 mins remaining to download while I update this blog.
 
 
+## Jul 18 03:07:38 AM
+After spending almost an hour to figure out why was I getting the "ValidationError: local time must be less that 3 seconds than others" which didn't make sense at all. I fixed it by installing chrony and enabling ntp (for debian/ubuntu I think you can get away with using ntpdate but who am I to guess that, I use void anyways).
+
+Well now we have the LLaMa-65B model working so lets go! thats progress.
+![](img/2023-07-18-03-17-17.png) what?
