@@ -41,3 +41,11 @@ Alright alright calm down (as if you guys were getting worked up cause of that X
 3. Bloom and LLaMA are just different kinds of LLM models which are available to use in the wild. There are more but petals had only these two if I am not wrong. You can setup a swarm for other models but meh I don't have a good gpu to do that so well I will use LLaMA. And what will you do even if I had an option eh? Not like you can come into the screen and hit me in the past. hah Quantum Mechanics doesn't allow time travel ehehehe.
 
 Now that this is out of the way and I hope you understand everything better, I am going to work on allowing the user to have a chit chat witth the model. While I do that, why not give the "star" and "watch" buttons on this repo a little pat pat eh? Would help me out. XD
+
+
+## Jul 19 01:22:34 AM
+![](img/2023-07-19-01-22-43.png)
+I don't know what to do now since LLaMA model on petals seems like it won't work... FUCK... well there goes my bullshitting on you guys from the last update lol. I'll check out which one is available and switch to that one.
+
+![](img/2023-07-19-01-36-33.png)
+Seems like the whole thing is down.. Jesus fucking hell so that means I can't proceed forward with the ML chat. Well thats a wrap then XD
