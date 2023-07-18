@@ -20,4 +20,24 @@ The model of choice was LLaMa-65B but I was getting a validation error for that 
 After spending almost an hour to figure out why was I getting the "ValidationError: local time must be less that 3 seconds than others" which didn't make sense at all. I fixed it by installing chrony and enabling ntp (for debian/ubuntu I think you can get away with using ntpdate but who am I to guess that, I use void anyways).
 
 Well now we have the LLaMa-65B model working so lets go! thats progress.
-![](img/2023-07-18-03-17-17.png) what?
+![](img/2023-07-18-03-17-17.png) 
+what?
+
+## Jul 19 00:22:29 AM
+Ello there bois and girls. After a day of pulling my hair at work (I didn't work the whole day) here I am writing this blog again, but fear not, I am sure it won't be a new day for you but instead you would be reading this all in one go. YOU WON'T KNOW ABOUT MY SUFFERINGS AND THE WAIT!! AAAAAAAAAAAAAAAAAAAAAA.
+
+So yesterday I posted this repo on reddit and someone there said "Ey, I gotta learn more about this then I will get what it is" to which I asked "Should I make this shit simpler?". They said "yes please". So u/lolcoder69, this nerdy programmer shall do the same. Hmmm now how do we do that? first I'll start with explaining about what the F is happening in here "tf is petals? aint no flowery lad you are? decentralized way of running LLM? what you the central government!? LLaMA-cpp my butt what?"
+
+Alright alright calm down (as if you guys were getting worked up cause of that XD) I'll explain everything in Ape terms. 
+
+1. First on list is LLaMA-cpp
+    - What is this about one might ask? So some extremely smart guy came up with this idea of quantizing a LLaMA model and running it. Now what they were looking for was speeeeeed. They wrote the whole inference method in C++??!?! LIKE FUCKING SMART HUMANS. And this was all hacked in one day (I think they mentioned it in their repo [Check it out here](https://github.com/ggerganov/llama.cpp))
+    - Now what this is does is makes running an LLM on your laptop easier (you won't get ChatGPT like speeds but it is workable), and a lighter model (quantized one) means it's gonna run even lighter with not much of loss in the performance. Though you would need a really good GPU for that but we don't have that so fuck this.
+
+2. Now to solve our previous issue of not having a good GPU, I introduce to you [Petals](https://github.com/bigscience-workshop/petals).
+    - Some ultra smart human came into the loop and said "Bitches we have decentralized currencies, what if I fed those deadass mining GPUs a wonderful way to run LLMs in a decentralized manner?" and there we go, we have Petals.
+    - How it works is pretty simple. Most of the heavy lifting of calculating what the Large Language Model (ie LLM) has to say on other gpus which are in a "swarm". Swarm is basically a group of GPUs which can be used (These are not available for free since someone is willing to let you use them so be grateful to them). The calculation of words is done on your device and there you go, you have an output of words from the supported LLM.
+
+3. Bloom and LLaMA are just different kinds of LLM models which are available to use in the wild. There are more but petals had only these two if I am not wrong. You can setup a swarm for other models but meh I don't have a good gpu to do that so well I will use LLaMA. And what will you do even if I had an option eh? Not like you can come into the screen and hit me in the past. hah Quantum Mechanics doesn't allow time travel ehehehe.
+
+Now that this is out of the way and I hope you understand everything better, I am going to work on allowing the user to have a chit chat witth the model. While I do that, why not give the "star" and "watch" buttons on this repo a little pat pat eh? Would help me out. XD
