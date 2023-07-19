@@ -1,73 +1,47 @@
-from template import *
+import template
+from llama_cpp import Llama
 
-from transformers import AutoTokenizer
-from petals import AutoDistributedModelForCausalLM
+class LLAMA:
+    def __init__(self, model_path, n_gpu_layers=50, n_ctx=512, seed = -1, n_threads = 8, n_parts = -1):
+        self.llm = Llama(model_path, n_gpu_layers = n_gpu_layers, n_ctx = n_ctx, seed = seed, n_threads = n_threads, n_parts = n_parts)
+        self.llm.reset()
+        self.USER_NAME = template.USER_NAME
+        self.AI_NAME = template.AI_NAME
+        self.template = template.template
 
-class LLM:
-    def __init__(
-            self, 
-            model_name:str = "bigscience/bloom",
-            ) -> None:
-        self.tokenizer = AutoTokenizer.from_pretrained(model_name, use_fast = False, add_bos_token = False)
-        self.llm = AutoDistributedModelForCausalLM.from_pretrained(model_name)
-        self.llm = self.llm
+    def generate_reply(self, prompt):
+        answer_stream = self.llm("{} {}".format(self.template, prompt), stop = [f"{self.USER_NAME}", ".\n"], max_tokens = 128, stream = True, top_k=1)
+        answer = ""
 
-        self.template = template
+        for line in answer_stream:
+            answer += line["choices"][0]["text"]
+
+        self.template += answer + "\n"
+
+        try:
+            answer = answer.replace("  ", " ").split(f"{self.AI_NAME}:")[1]
+            self.strip_template()
+        except:
+            answer = "I couldn't understand, try using a different prompt. "
+        # answer = answer_stream["choices"][0]["text"].replace("  ", " ")
+
+        # self.generate_summary(answer)
+
+        return answer
+
 
     def strip_template(self):
-        # If template becomes a bit too long, we just strip it off cause we won't be depending on this for context
         if len(self.template) >= 1024:
-            self.template = self.template[200: ]  
-
-    def chat(self):
-        print("Starting the chat")
-
-        fake_token = self.tokenizer("^")["input_ids"][0]  # Workaround to make SentencePiece .decode() keep leading spaces
-
-        with self.llm.inference_session(max_length=512) as sess:
-            while True:
-                prompt = input('Human: ')
-                if prompt == "":
-                    break
-                prefix = f"Human: {prompt}\nFriendly AI:"
-                prefix = self.tokenizer(prefix, return_tensors="pt")["input_ids"]
-                print("Friendly AI:", end="", flush=True)
-
-                while True:
-                    outputs = self.llm.generate(
-                        prefix, max_new_tokens=1, do_sample=True, top_p=0.9, temperature=0.75, session=sess
-                    )
-                    outputs = self.tokenizer.decode([fake_token, outputs[0, -1].item()])[1:]
-                    print(outputs, end="", flush=True)
-                    if "\n" in outputs:
-                        break
-                    prefix = None  # Prefix is passed only for the 1st token of the bot's response
-
-
-
-    # def generate(self, prompt: str, max_new_tokens: int = 128):
-        # answer_tokens = self.tokenizer(f"{self.template} {prompt}", return_tensors = "pt")["input_ids"]
-        # answer = self.llm.generate(answer_tokens, max_new_tokens = max_new_tokens)
-        # answer_string = self.tokenizer.decode(answer[0])
-        # 
-        #
-        # self.template += f"{answer_string} \n"
-        # 
-        # # A chicky little hack to check be sure that the program doesn't crash if an answer_string couldn't be generated.
-        # try:
-        #     answer_string = answer_string.replace("  ", " ").split(f"{AI_NAME}:")[1]
-        # except:
-        #     answer_string = "I couldn't understand what you meant, try asking something else?"
-        #
-        # return answer_string
-        #
-
+            self.template = self.template[200: ] 
 
 
 def main():
-    obj = LLM(model_name = "bigscience/bloom")
-    obj.chat()
+    obj = LLAMA(model_path="./model/ggml-vic7b-uncensored-q5_1.bin")
+    print("---------------------------------------------------------")
+    obj.generate_reply("Tell me about a C-arm Machine.")
+
+    # print("---------------------------------------------------------")
+    # obj.generate_reply("Oh what is the use of Anesthesia Machine? Can we kill someone with it? ")
 
 if __name__ == "__main__":
     main()
-
