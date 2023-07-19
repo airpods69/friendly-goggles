@@ -49,3 +49,12 @@ I don't know what to do now since LLaMA model on petals seems like it won't work
 
 ![](img/2023-07-19-01-36-33.png)
 Seems like the whole thing is down.. Jesus fucking hell so that means I can't proceed forward with the ML chat. Well thats a wrap then XD
+
+
+## Jul 20 01:07:01 AM 
+Ello there chiky lads and lovely lass, I am fucked today. 
+Remember I implemented a local LLM? then switched to Petals cause performance and hardware issues? Well guess what?!?!! AT MY JOB, THEY SAID YOU GOTTA IMPLEMENT LLM ALONG WITH CONTEXTUAL MEMORY! WHICH IS EXACTLY WHAT WE WERE DOING PREVIOUSLY.
+
+So LLM is gonna come back with the template and all of that, and lets add contextual memory to it as well today in the same go. 
+
+What do we do? So its simple from the top, remove petals completely and add an LLaMA-cpp again and add an option to choose which model you want to talk to? that would be nice to have. Then add contextual memory in another branch and not this one. Hmmm sounds good, the model will remember what you guys were talking about (Again better than a fake friend)
