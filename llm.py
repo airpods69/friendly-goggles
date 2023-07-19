@@ -36,7 +36,7 @@ class LLAMA:
 
 
 def main():
-    obj = LLAMA(model_path="./model/ggml-vic7b-uncensored-q5_1.bin")
+    obj = LLAMA(model_path="./model/ggml-vic13b-uncensored-q5_1.bin")
     print("---------------------------------------------------------")
     obj.generate_reply("Tell me about a C-arm Machine.")
 
